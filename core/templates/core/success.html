@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-image: url("{% static 'core/images/background.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+    }
+    .container {
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #28a745;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+</style>
+
+<div class="container">
+    <h2>Registration Successful!</h2>
+    <a href="{% url 'register' %}" class="btn btn-secondary">Register Another</a>
+</div>
+{% endblock %}
