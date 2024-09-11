@@ -1,31 +1,9 @@
 import qrcode
 import os
 from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives  # Updated import
 
-def generate_qr_code(unique_id, user_id):
-    # Create a folder to store QR codes (if it doesn't exist)
-    qr_folder = 'qr_codes'
-    if not os.path.exists(qr_folder):
-        os.makedirs(qr_folder)
-
-    # File path to save the QR code
-    qr_file_path = os.path.join(qr_folder, f'{user_id}_qr_code.png')
-
-    # Generate QR code
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
-    qr.add_data(str(unique_id))
-    qr.make(fit=True)
-
-    # Save the QR code to file
-    img = qr.make_image(fill='black', back_color='white')
-    img.save(qr_file_path)
-
-    return qr_file_path  # Return the file path
+d
 
 
 # def send_qr_email(user_email, user_name, user_id, unique_id):
@@ -62,9 +40,6 @@ def generate_qr_code(unique_id, user_id):
 #     os.remove(qr_file_path)
 
 
-import qrcode
-import os
-from django.core.mail import EmailMessage
 
 def generate_qr_code(unique_id, user_id):
     # Create a folder to store QR codes (if it doesn't exist)
@@ -91,9 +66,7 @@ def generate_qr_code(unique_id, user_id):
 
     return qr_file_path  # Return the file path
 
-import qrcode
-import os
-from django.core.mail import EmailMultiAlternatives  # Updated import
+
 
 def generate_qr_code(unique_id, user_id):
     # Create a folder to store QR codes (if it doesn't exist)
