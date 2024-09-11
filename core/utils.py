@@ -64,14 +64,11 @@ def generate_qr_code(unique_id, user_id):
 
 def send_qr_email(user_email, user_name, user_id, unique_id):
     subject = 'Confirmation Invitation: Resilience and Renewal Conference'
-    
-    # URL of your background image on the server
-    background_image_url = 'http://127.0.0.1:8000/static/core/images/desktop_background_image.png'
 
     # Generate the QR code and get the file path
     qr_file_path = generate_qr_code(unique_id, user_id)
 
-    # HTML content of the email with inline CSS for better email client compatibility
+    # HTML content of the email
     html_content = f"""
     <html>
         <body style="margin:0; padding:0; background-color:#e6f2f5; font-family:Arial, sans-serif; text-align:center;">
@@ -94,7 +91,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
                                         You will need to have the QR Code below ready for scanning.
                                     </p>
                                     <div style="margin: 20px 0;">
-                                        <img src="cid:qr_code.png" alt="QR Code" style="max-width:150px;"/>
+                                        <img src="cid:qr_code" alt="QR Code" style="max-width:150px;"/>
                                     </div>
                                     <p style="font-size:14px; color:#888; margin-top:20px;">
                                         Thank you for being a part of this important event.
@@ -123,16 +120,17 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     email = EmailMultiAlternatives(
         subject,
         text_content,
-        'adityathapliyal307@gmail.com',  # Replace with your email
+        'your-email@example.com',  # Replace with your email
         [user_email],
     )
 
     # Attach the HTML content
     email.attach_alternative(html_content, "text/html")
 
-    # Attach the QR code image file and mark it as inline (cid:qr_code.png for embedding in HTML)
+    # Attach the QR code image file and mark it as inline
     with open(qr_file_path, 'rb') as qr_file:
         email.attach('qr_code.png', qr_file.read(), 'image/png')
+        email.attachments[-1]['Content-ID'] = '<qr_code>'  # Set the content ID for embedding
 
     # Send the email
     email.send()
