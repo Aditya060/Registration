@@ -44,7 +44,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     qr_file_path = generate_qr_code(unique_id, user_id)
 
   
-    background_image_url = 'https://registration-abmr.onrender.com/static/core/images/desktop_background_image.png'
+    background_image_url = 'https://i.imgur.com/aE3Btq0.png'
 
     # HTML content of the email
     html_content = f"""
