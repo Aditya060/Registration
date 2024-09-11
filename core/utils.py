@@ -127,14 +127,19 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     # Attach the HTML content
     email.attach_alternative(html_content, "text/html")
 
-    # Attach the QR code image file and mark it as inline
+    # Attach the QR code image file and mark it as inline with headers
     with open(qr_file_path, 'rb') as qr_file:
-        email.attach('qr_code.png', qr_file.read(), 'image/png')
-        email.attachments[-1]['Content-ID'] = '<qr_code>'  # Set the content ID for embedding
+        email.attach(
+            'qr_code.png', 
+            qr_file.read(), 
+            'image/png', 
+            headers=[('Content-ID', '<qr_code>')]  # Set the Content-ID in headers directly
+        )
 
     # Send the email
     email.send()
 
     # Remove the generated QR code file after sending the email
     os.remove(qr_file_path)
+
 
