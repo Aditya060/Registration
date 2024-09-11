@@ -53,7 +53,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 20px; background-color: #e6f2f5;">
                 <tr>
                     <td>
-                        <table align="center" cellpadding="0" cellspacing="0" style="max-width:600px; background-color:#ffffff; border-radius:10px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1); background-image: url('{background_image_url}'); background-size: cover; background-position: center;">
+                        <table align="center" cellpadding="0" cellspacing="0" style="max-width:1000px; background-color:#ffffff; border-radius:10px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1); background-image: url('{background_image_url}'); background-size: cover; background-position: center;">
                             <tr>
                                 <td align="center">
                                     <h1 style="color:#006666; margin-bottom:20px;">Resilience and Renewal Conference</h1>
