@@ -2,6 +2,7 @@ import qrcode
 import os
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives  # Updated import
+from email.mime.image import MIMEImage
 
 
 
@@ -120,26 +121,21 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     email = EmailMultiAlternatives(
         subject,
         text_content,
-        'adityatest307@gmail.com',  # Replace with your email
+        'your-email@example.com',  # Replace with your email
         [user_email],
     )
 
     # Attach the HTML content
     email.attach_alternative(html_content, "text/html")
 
-    # Attach the QR code image file and mark it as inline with headers
+    # Attach the QR code image file as MIMEImage and set the Content-ID
     with open(qr_file_path, 'rb') as qr_file:
-        email.attach(
-            'qr_code.png', 
-            qr_file.read(), 
-            'image/png', 
-            headers=[('Content-ID', '<qr_code>')]  # Set the Content-ID in headers directly
-        )
+        qr_image = MIMEImage(qr_file.read())
+        qr_image.add_header('Content-ID', '<qr_code>')  # Set the content ID for embedding in the HTML
+        email.attach(qr_image)
 
     # Send the email
     email.send()
 
     # Remove the generated QR code file after sending the email
     os.remove(qr_file_path)
-
-
