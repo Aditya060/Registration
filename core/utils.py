@@ -123,7 +123,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     email = EmailMultiAlternatives(
         subject,
         text_content,
-        'adityattest307@example.com',  # Replace with your email
+        'adityattest307@gmail.com',  # Replace with your email
         [user_email],
     )
 
