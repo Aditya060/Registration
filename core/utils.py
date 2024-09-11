@@ -69,11 +69,13 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     # Generate the QR code and get the file path
     qr_file_path = generate_qr_code(unique_id, user_id)
 
-    # HTML content of the email
+    background_image_url = 'https://registration-abmr.onrender.com/static/core/images/desktop_background_image.png'
+
+    
     html_content = f"""
     <html>
         <body style="margin:0; padding:0; background-color:#e6f2f5; font-family:Arial, sans-serif; text-align:center;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 20px; background-color: #e6f2f5;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-image: url('{background_image_url}'); background-size: cover; background-position: center; padding: 20px; background-color: #e6f2f5;">
                 <tr>
                     <td>
                         <table align="center" cellpadding="0" cellspacing="0" style="max-width:600px; background-color:#ffffff; border-radius:10px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
@@ -121,7 +123,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     email = EmailMultiAlternatives(
         subject,
         text_content,
-        'your-email@example.com',  # Replace with your email
+        'adityattest307@example.com',  # Replace with your email
         [user_email],
     )
 
@@ -131,7 +133,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     # Attach the QR code image file as MIMEImage and set the Content-ID
     with open(qr_file_path, 'rb') as qr_file:
         qr_image = MIMEImage(qr_file.read())
-        qr_image.add_header('Content-ID', '<qr_code>')  # Set the content ID for embedding in the HTML
+        qr_image.add_header('Content-ID', '<qr_code>')  
         email.attach(qr_image)
 
     # Send the email
