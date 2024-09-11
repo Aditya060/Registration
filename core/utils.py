@@ -71,80 +71,40 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     # Generate the QR code and get the file path
     qr_file_path = generate_qr_code(unique_id, user_id)
 
-    # HTML content of the email
+    # HTML content of the email with inline CSS for better email client compatibility
     html_content = f"""
     <html>
-        <head>
-            <style>
-                body {{
-                    background-color: #e6f2f5;
-                    font-family: 'Arial', sans-serif;
-                    margin: 0;
-                    padding: 0;
-                }}
-                .email-wrapper {{
-                    background-image: url('{background_image_url}');
-                    background-size: cover;
-                    background-position: center;
-                    padding: 20px;
-                    width: 100%;
-                    height: 100%;
-                    margin: 0;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }}
-                .email-container {{
-                    background-color: rgba(255, 255, 255, 0.9);
-                    padding: 30px;
-                    width: 600px;
-                    border-radius: 15px;
-                    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-                    text-align: center;
-                }}
-                h1 {{
-                    color: #006666;
-                    margin-bottom: 20px;
-                }}
-                p {{
-                    color: #333;
-                    font-size: 16px;
-                    line-height: 1.5;
-                    margin-bottom: 20px;
-                }}
-                .qr-code {{
-                    text-align: center;
-                    margin: 20px 0;
-                }}
-                .footer {{
-                    font-size: 12px;
-                    color: #888;
-                    text-align: center;
-                    margin-top: 30px;
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="email-wrapper">
-                <div class="email-container">
-                    <h1>Resilience and Renewal Conference</h1>
-                    <p>Dear {user_name},</p>
-                    <p>
-                        Thank you for registering for our upcoming event. We look forward to welcoming you to 
-                        <strong>“Resilience and Renewal: Women Refugee Health in a Changing Climate Conference”</strong> on October 1, 2024 at 09:00 A.M.
-                    </p>
-                    <p>
-                        Please arrive at the venue at your allotted registration time and make your way to the registration counter to be checked in. 
-                        You will need to have the QR Code below ready for scanning.
-                    </p>
-                    <div class="qr-code">
-                        <img src="cid:qr_code.png" alt="QR Code" />
-                    </div>
-                    <div class="footer">
-                        <p>Thank you for being a part of this important event.</p>
-                    </div>
-                </div>
-            </div>
+        <body style="margin:0; padding:0; background-color:#e6f2f5; font-family:Arial, sans-serif; text-align:center;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding: 20px; background-color: #e6f2f5;">
+                <tr>
+                    <td>
+                        <table align="center" cellpadding="0" cellspacing="0" style="max-width:600px; background-color:#ffffff; border-radius:10px; padding:20px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                            <tr>
+                                <td align="center">
+                                    <h1 style="color:#006666; margin-bottom:20px;">Resilience and Renewal Conference</h1>
+                                    <p style="color:#333; font-size:16px; line-height:1.5; margin-bottom:20px;">
+                                        Dear {user_name},
+                                    </p>
+                                    <p style="color:#333; font-size:16px; line-height:1.5; margin-bottom:20px;">
+                                        Thank you for registering for our upcoming event. We look forward to welcoming you to 
+                                        <strong>“Resilience and Renewal: Women Refugee Health in a Changing Climate Conference”</strong> on October 1, 2024 at 09:00 A.M.
+                                    </p>
+                                    <p style="color:#333; font-size:16px; line-height:1.5; margin-bottom:20px;">
+                                        Please arrive at the venue at your allotted registration time and make your way to the registration counter to be checked in. 
+                                        You will need to have the QR Code below ready for scanning.
+                                    </p>
+                                    <div style="margin: 20px 0;">
+                                        <img src="cid:qr_code.png" alt="QR Code" style="max-width:150px;"/>
+                                    </div>
+                                    <p style="font-size:14px; color:#888; margin-top:20px;">
+                                        Thank you for being a part of this important event.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
     </html>
     """
@@ -179,3 +139,4 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
 
     # Remove the generated QR code file after sending the email
     os.remove(qr_file_path)
+
