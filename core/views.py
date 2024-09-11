@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import User
 from django.http import HttpResponse
+from .utils import send_qr_email
 
 
 def register(request):
