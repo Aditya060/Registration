@@ -3,41 +3,9 @@ import os
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives  # Updated import
 
-d
 
 
-# def send_qr_email(user_email, user_name, user_id, unique_id):
-#     subject = 'Confirmation Invitation: Resilience and Renewal Conference'
-#     body = f"""
-#     Dear {user_name},
 
-#     Thank you for registering for our upcoming event. We look forward to welcoming you to “Resilience and Renewal: Women Refugee Health in a Changing Climate Conference” on October 1, 2024 at 09:00 A.M.
-
-#     Please arrive at the venue at your allotted registration time and make your way to the registration counter to be checked in. You will need to have the QR Code below ready for scanning.
-
- 
-
-#     Thank you.
-#     """
-
-#     # Generate the QR code and get the file path
-#     qr_file_path = generate_qr_code(unique_id, user_id)
-
-#     # Create the email
-#     email = EmailMessage(
-#         subject,
-#         body,
-#         'adityathapliyal307@gmail.com',  # Replace with your email
-#         [user_email],
-#     )
-
-#     # Attach the QR code image file
-#     with open(qr_file_path, 'rb') as qr_file:
-#         email.attach('qr_code.png', qr_file.read(), 'image/png')
-
-#     # Send the email
-#     email.send()
-#     os.remove(qr_file_path)
 
 
 
