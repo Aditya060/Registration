@@ -134,3 +134,12 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# Email configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'           # SMTP server for Gmail
+EMAIL_PORT = 587                        # Gmail uses port 587 for TLS
+EMAIL_USE_TLS = True                    # Use TLS for secure connection
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Your email address
+# EMAIL_HOST_USER = 'adityatest307@gmail.com'  # Your email address
+
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Your email password or app-specific password
