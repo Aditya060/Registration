@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import User
-from django.http import HttpResponse
 from .utils import send_qr_email
-
 
 def register(request):
     if request.method == 'POST':
@@ -13,11 +11,15 @@ def register(request):
             # Save the user to the database
             user = form.save()
 
-            # Generate the QR code for the user's unique_id
+           
+            # local_background_image_path = "/Users/adityathapliyal/Desktop/Registration-Final/Registration/core/static/core/images/new_back.png"
+            # online_background_image_url = "https://registration-abmr.onrender.com/static/core/images/desktop_background_image.png"
             
             print('form has been saved')
+            
             # Send the QR code via email to the user's email address
             send_qr_email(user.email, user.name, user.id, user.unique_id)
+
             print('email has been sent')
 
             return redirect('success')
@@ -29,4 +31,3 @@ def register(request):
 
 def success(request):
     return render(request, 'core/success.html')
-
