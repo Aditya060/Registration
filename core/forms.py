@@ -51,3 +51,9 @@ class RegistrationForm(forms.ModelForm):
         if User.objects.filter(email=email).exists():
             raise forms.ValidationError("This email has already been registered.")
         return email
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if User.objects.filter(phone_number=phone_number).exists():
+            raise forms.ValidationError("This phone number has already been registered.")
+        return phone_number
