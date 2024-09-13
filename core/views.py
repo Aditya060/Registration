@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm
 from .models import User
 from .utils import send_qr_email
+from django.http import HttpResponse
 
 def register(request):
     if request.method == 'POST':
@@ -31,3 +32,11 @@ def register(request):
 
 def success(request):
     return render(request, 'core/success.html')
+
+
+#Function to verify if the user whose qr code was scanned, exists in the database
+def verify_qr_code(request, user_id):
+   user = get_object_or_404(User, pk=user_id, unique_id=unique_id)
+   return render(request, 'verify_qr_code.html', {'user': user})
+    # return render(request, 'verify_qr_code.html', {'user': user})
+
