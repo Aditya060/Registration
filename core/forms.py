@@ -46,3 +46,8 @@ class RegistrationForm(forms.ModelForm):
             'class': 'form-control'
         }),
     }
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email has already been registered.")
+        return email
