@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}QR Code Verification{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if user %}
+        <h1 class="text-center">Welcome, {{ user.name }}!</h1>
+        <div class="alert alert-success" role="alert">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone Number:</strong> {{ user.phone_number }}</p>
+            <p><strong>Job:</strong> {{ user.job }}</p>
+            <p><strong>Company:</strong> {{ user.company }}</p>
+            <p><strong>Panel:</strong> {{ user.get_panel_display }}</p>
+        </div>
+    {% else %}
+        <h1 class="text-center">Sorry, you haven't registered yet.</h1>
+        <div class="alert alert-danger" role="alert">
+            <p>The QR code you scanned does not match any registered user. Please check your registration details or contact support.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
