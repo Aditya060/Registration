@@ -3,6 +3,20 @@
 {% block title %}QR Code Verification{% endblock %}
 
 {% block content %}
+<style>
+    <style>
+    body {
+        background-image: url("{% static 'core/images/desktop_background_image.png' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+    }
+    
 <div class="container">
     {% if user %}
         <h1 class="text-center">Welcome, {{ user.name }}!</h1>
