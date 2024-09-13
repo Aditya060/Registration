@@ -179,21 +179,26 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
 
 
 
-
-    header_image_path = finders.find('core/images/email_header2.jpg')
+    header_image_path = finders.find('core/images/email_header1.jpg')
     if header_image_path:
         with open(header_image_path, 'rb') as header_file:
+            header_image = MIMEImage(header_file.read())
+            header_image.add_header('Content-ID', '<header_image>')
+            email.attach(header_image)
+    else:
+        print("File not found")
+    
+
+    header_image_path2 = finders.find('core/images/email_header2.jpg')
+    if header_image_path2:
+        with open(header_image_path2, 'rb') as header_file:
             header_image2 = MIMEImage(header_file.read())
             header_image2.add_header('Content-ID', '<header_image2>')
             email.attach(header_image2)
     else:
         print("File not found")
-    
-    header_image_url = '/opt/render/project/src/static/core/images/email_header1.jpg'
-    with open(header_image_path, 'rb') as header_file:
-        header_image = MIMEImage(header_file.read())
-        header_image.add_header('Content-ID', '<header_image>')
-        email.attach(header_image)
+        
+   
 
     
     # Download the image using requests
