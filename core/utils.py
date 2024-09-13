@@ -5,6 +5,8 @@ from django.core.mail import EmailMultiAlternatives
 from email.mime.image import MIMEImage
 from django.templatetags.static import static
 import requests
+from django.contrib.staticfiles import finders
+
 
 
 # Function to generate QR code and save as image
@@ -176,12 +178,17 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
         email.attach(qr_image)
 
 
-    header_image_url2 = '/opt/render/project/src/static/core/images/email_header2.jpg'
-    with open(header_image_path2, 'rb') as header_file:
-        header_image2 = MIMEImage(header_file.read())
-        header_image2.add_header('Content-ID', '<header_image2>')
-        email.attach(header_image2)
 
+
+    header_image_path = finders.find('core/images/email_header2.jpg')
+    if header_image_path:
+        with open(header_image_path, 'rb') as header_file:
+            header_image2 = MIMEImage(header_file.read())
+            header_image2.add_header('Content-ID', '<header_image2>')
+            email.attach(header_image2)
+    else:
+        print("File not found")
+    
     header_image_url = '/opt/render/project/src/static/core/images/email_header1.jpg'
     with open(header_image_path, 'rb') as header_file:
         header_image = MIMEImage(header_file.read())
