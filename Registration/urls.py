@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.register, name = 'register'),
     path('success/', views.success, name = 'success'),
-    path('verify/<uuid:user_id>/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
+    path('verify/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
 
 ]
 urlpatterns += staticfiles_urlpatterns()
