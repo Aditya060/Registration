@@ -37,6 +37,6 @@ def success(request):
 #Function to verify if the user whose qr code was scanned, exists in the database
 def verify_qr_code(request, user_id):
    user = get_object_or_404(User, pk=user_id, unique_id=unique_id)
-   return render(request, 'verify_qr_code.html', {'user': user})
+   return render(request, 'core/verify_qr_code.html', {'user': user})
     # return render(request, 'verify_qr_code.html', {'user': user})
 
