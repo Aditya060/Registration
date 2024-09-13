@@ -23,7 +23,7 @@ def generate_qr_code(unique_id, user_id):
         box_size=10,
         border=4,
     )
-    qr.add_data(f'https://registration-abmr.onrender.com//verify/{user_id}/{unique_id}/') # QR code confirmation link
+    qr.add_data(f'https://registration-abmr.onrender.com//verify/{unique_id}/') # QR code confirmation link
     qr.make(fit=True)
 
     img = qr.make_image(fill='black', back_color='white')
