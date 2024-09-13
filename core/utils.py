@@ -175,23 +175,38 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
         qr_image.add_header('Content-ID', '<qr_code>')
         email.attach(qr_image)
 
-    image_url = 'https://registration-abmr.onrender.com/static/core/images/email_header1.jpg'
-    response = requests.get(image_url)
-    img_data = response.content
-    header_image = MIMEImage(img_data, _subtype = 'jpeg')
 
-    # Attach the header image (replace this with your actual image file)
-    # header_image_path = '/Users/adityathapliyal/Desktop/Registration-Final/Registration/core/static/core/images/email_header1.jpg'  # Replace with your actual header image path
-    # with open(header_image_path, 'rb') as header_file:
-    #     header_image = MIMEImage(header_file.read())
-    header_image.add_header('Content-ID', '<header_image>')
-    email.attach(header_image)
-
-    header_image_path2 = 'https://registration-abmr.onrender.com/static/core/images/email_header2.jpg'  # Replace with your actual header image path
-    with open(header_image_path2, 'rb') as header_file:
-        header_image2 = MIMEImage(header_file.read())
+    header_image_url = 'https://registration-abmr.onrender.com/static/core/images/email_header1.jpg'
+    # Download the image using requests
+    response = requests.get(header_image_url)
+    
+    # Ensure the request was successful
+    if response.status_code == 200:
+        img_data = response.content  # Get the image data as bytes
+    
+        # Create the MIME image object and attach it to the email
+        header_image = MIMEImage(img_data)
+        header_image.add_header('Content-ID', '<header_image>')
+        email.attach(header_image)
+    else:
+        print("Failed to download image:", response.status_code)
+        
+    header_image_url2 = 'https://registration-abmr.onrender.com/static/core/images/email_header2.jpg'
+    # Download the image using requests
+    response = requests.get(header_image_url2)
+    
+    # Ensure the request was successful
+    if response.status_code == 200:
+        img_data2 = response.content  # Get the image data as bytes
+    
+        # Create the MIME image object and attach it to the email
+        header_image2 = MIMEImage(img_data)
         header_image2.add_header('Content-ID', '<header_image2>')
         email.attach(header_image2)
+    else:
+        print("Failed to download image:", response.status_code)
+    
+    
 
     # Send the email
     email.send()
