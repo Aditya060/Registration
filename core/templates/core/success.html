@@ -13,29 +13,32 @@
         align-items: center;
         justify-content: center;
         color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     .container {
         backdrop-filter: blur(10px);
         border: 1px solid rgba(0, 0, 0, 0.1);
         text-align: center;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.8);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        background: rgba(255, 255, 255, 0.5); /* Reduced opacity */
     }
     h2 {
         margin-bottom: 20px;
-        font-size: 2rem;
-        color: #28a745;
+        font-size: 2.2rem;
+        font-weight: 600;
+        color: #1d7d74; /* Blends better with surroundings */
+        font-family: 'Merriweather', serif;
     }
     .checkmark-container {
         display: flex;
         justify-content: center;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
     .checkmark {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         border-radius: 50%;
         background-color: #28a745;
         display: flex;
@@ -44,18 +47,32 @@
     }
     .checkmark::before {
         content: '✔';
-        font-size: 30px;
+        font-size: 32px;
         color: white;
     }
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
+    p {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        color: #444; /* Softer color for better blending */
+        font-family: 'Lora', serif;
     }
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
+    .email {
+        margin-top: 20px;
+        font-size: 1rem;
+        color: #006e6e; /* Darker teal for subtle contrast */
+        font-weight: 500;
     }
-    /* Media queries for different devices */
+    .email a {
+        text-decoration: none;
+        color: #006e6e;
+        font-weight: bold;
+    }
+    .email a:hover {
+        text-decoration: underline;
+        color: #005050;
+    }
+    /* Media queries for smaller screens */
     @media (max-width: 768px) {
         body {
             background-image: url("{% static 'core/images/Mobile_background_image.png' %}");
@@ -76,6 +93,8 @@
         <div class="checkmark"></div>
     </div>
     <h2>Registration Successful!</h2>
-    <a href="{% url 'register' %}" class="btn btn-secondary">Register Another</a>
+    <p>Thank you! Please check your email for a confirmation containing your QR code.</p>
+    <p>If you do not receive the email, feel free to contact us for assistance.</p>
+    <p class="email">Contact: <a href="mailto:info@sheikhafatimafund.ae">info@sheikhafatimafund.ae</a></p>
 </div>
 {% endblock %}
