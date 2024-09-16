@@ -149,6 +149,13 @@
         <div class="form-group">
             <!-- <label for="id_captcha">Captcha</label> -->
             {{ form.captcha }}
+            {% if form.captcha.errors %}
+                <div class="text-danger">
+                    {% for error in form.captcha.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
