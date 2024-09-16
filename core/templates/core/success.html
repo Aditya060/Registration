@@ -55,6 +55,20 @@
         background-color: #5a6268;
         border-color: #545b62;
     }
+    /* Media queries for different devices */
+    @media (max-width: 768px) {
+        body {
+            background-image: url("{% static 'core/images/Mobile_background_image.png' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+    }
 </style>
 
 <div class="container">
