@@ -146,7 +146,12 @@
             <label for="id_panel">Which panel would you like to attend?</label>
             {{ form.panel }}
         </div>
+        <div class="form-group">
+            <!-- <label for="id_captcha">Captcha</label> -->
+            {{ form.captcha }}
+        </div>
 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
