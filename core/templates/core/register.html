@@ -20,6 +20,7 @@
         border: 1px solid rgba(0, 0, 0, 0.1);
         padding: 30px;
         border-radius: 15px;
+        margin-top: 100px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         width: 100%;
         max-width: 500px;
@@ -30,7 +31,7 @@
         margin-bottom: 20px;
         font-size: 2rem;
         text-align: center;
-        color:  rgb(16, 139, 139);
+        color: rgb(16, 139, 139);
     }
 
     .form-group {
@@ -52,15 +53,29 @@
         border-radius: 5px;
     }
 
+    /* Placeholder Styling */
+    .form-control::placeholder {
+        opacity: 0.5; /* Lighter placeholder text */
+        color: #999; /* Placeholder color */
+    }
+
+    /* Input text styling when the user types */
+    .form-control {
+        color: #333; /* Darker input text color */
+        font-weight: bold; /* Bold input text */
+    }
+
+    /* Focus styling to enhance UX */
+    .form-control:focus {
+        border-color: #28a745; /* Green border on focus */
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Light green glow */
+    }
+
     /* Horizontal radio buttons */
     .form-check-inline {
         display: flex;
         justify-content: flex-start;
         gap: 15px;
-    }
-
-    .form-check-input {
-        margin-right: 5px;
     }
 
     .btn-primary {
@@ -78,34 +93,25 @@
     .btn-primary:hover {
         background-color: rgb(16, 139, 139);
     }
+   
     /* Media queries for different devices */
-        @media (max-width: 768px) {
-            body {
-                background-image: url("{% static 'core/images/Mobile_background_image.png' %}");
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #333;
-            }
-        .container {
-                backdrop-filter: blur(10px);
-                border: 1px solid rgba(0, 0, 0, 0.1);
-                padding: 30px;
-                margin-top: 200px;
-                border-radius: 15px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-                width: 100%;
-                max-width: 500px;
-                background: rgba(255, 255, 255, 0.2);
-    }
+    @media (max-width: 768px) {
+        body {
+            background-image: url("{% static 'core/images/Mobile.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
         }
+    }
 </style>
 
 <div class="container">
-    <h2>Registration Form</h2>
+    <h2>Register</h2>
     <form method="post">
         {% csrf_token %}
 
@@ -115,21 +121,15 @@
         </div>
 
         <div class="form-group">
-        <label for="id_email">Email</label>
-        {{ form.email }}
-        {% if form.email.errors %}
-            <div class="alert alert-danger">{{ form.email.errors }}</div>
-        {% endif %}
+            <label for="id_email">Email Address</label>
+            {{ form.email }}
         </div>
 
         <div class="form-group">
-        <label for="id_phone_number">Phone Number</label>
-        {{ form.phone_number }}
-        {% if form.phone_number.errors %}
-            <div class="alert alert-danger">{{ form.phone_number.errors }}</div>
-        {% endif %}
-            
-    </div>
+            <label for="id_phone_number">Phone Number</label>
+            {{ form.phone_number }}
+        </div>
+
         <div class="form-group">
             <label for="id_job">Job Title</label>
             <div class="form-check-inline">
@@ -146,8 +146,8 @@
             <label for="id_panel">Which panel would you like to attend?</label>
             {{ form.panel }}
         </div>
+
         <div class="form-group">
-            <!-- <label for="id_captcha">Captcha</label> -->
             {{ form.captcha }}
             {% if form.captcha.errors %}
                 <div class="text-danger">
@@ -157,8 +157,7 @@
                 </div>
             {% endif %}
         </div>
-
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
