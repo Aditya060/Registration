@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_recaptcha',
+    'captcha',
     'core',
 ]
 
@@ -143,3 +145,6 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Your email passwo
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'event@leapinteraction.com'
+
+RECAPTCHA_PUBLIC_KEY = os.environ.get('CAPTCHA_SITE_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('CAPTCHA_SECRET_KEY')
