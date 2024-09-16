@@ -1,7 +1,9 @@
 from django import forms
 from .models import User
+from django_recaptcha.fields import ReCaptchaField
 
 class RegistrationForm(forms.ModelForm):
+    captcha = ReCaptchaField()
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),
