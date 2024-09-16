@@ -19,26 +19,27 @@
         backdrop-filter: blur(10px);
         border: 1px solid rgba(0, 0, 0, 0.1);
         text-align: center;
-        padding: 30px;
+        padding: 20px; /* Reduced padding */
         border-radius: 12px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        background: rgba(255, 255, 255, 0.5); /* Reduced opacity */
+        background: rgba(255, 255, 255, 0.4); /* Further reduced opacity */
+        max-width: 400px; /* Smaller width */
     }
     h2 {
-        margin-bottom: 20px;
-        font-size: 2.2rem;
+        margin-bottom: 15px; /* Less margin */
+        font-size: 1.8rem; /* Reduced font size */
         font-weight: 600;
-        color: #1d7d74; /* Blends better with surroundings */
+        color: #1d7d74;
         font-family: 'Merriweather', serif;
     }
     .checkmark-container {
         display: flex;
         justify-content: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px; /* Less margin */
     }
     .checkmark {
-        width: 65px;
-        height: 65px;
+        width: 55px; /* Smaller checkmark */
+        height: 55px;
         border-radius: 50%;
         background-color: #28a745;
         display: flex;
@@ -47,20 +48,20 @@
     }
     .checkmark::before {
         content: '✔';
-        font-size: 32px;
+        font-size: 28px; /* Smaller font size */
         color: white;
     }
     p {
-        margin-bottom: 15px;
-        font-size: 1.1rem;
-        line-height: 1.5;
-        color: #444; /* Softer color for better blending */
+        margin-bottom: 10px; /* Less margin */
+        font-size: 0.9rem; /* Smaller font size */
+        line-height: 1.4;
+        color: #444;
         font-family: 'Lora', serif;
     }
     .email {
-        margin-top: 20px;
-        font-size: 1rem;
-        color: #006e6e; /* Darker teal for subtle contrast */
+        margin-top: 15px;
+        font-size: 0.85rem; /* Smaller font size */
+        color: #006e6e;
         font-weight: 500;
     }
     .email a {
