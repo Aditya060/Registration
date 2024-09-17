@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm
 from .models import User
 from .utils import send_qr_email
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+
 
 def register(request):
     if request.method == 'POST':
@@ -35,10 +36,18 @@ def success(request):
 
 
 #Function to verify if the user whose qr code was scanned, exists in the database
+# def verify_qr_code(request, unique_id):
+#     try:
+#         user = User.objects.get(unique_id=unique_id)
+#         return render(request, 'core/verify_qr_code.html', {'user': user})
+#     except User.DoesNotExist:
+#         # Custom user not found message
+#         return render(request, 'core/verify_qr_code.html', {'user': None, 'error_message': 'User not found. Please check your registration details.'})
+
+
 def verify_qr_code(request, unique_id):
     try:
-        user = User.objects.get(unique_id=unique_id)
-        return render(request, 'core/verify_qr_code.html', {'user': user})
+        user = get_object_or_404(User, unique_id=unique_id)
+        return JsonResponse({'status': 'success', 'message': 'User found', 'user_id': user.id})
     except User.DoesNotExist:
-        # Custom user not found message
-        return render(request, 'core/verify_qr_code.html', {'user': None, 'error_message': 'User not found. Please check your registration details.'})
+        return JsonResponse({'status': 'error', 'message': 'User not found'}, status=404)
