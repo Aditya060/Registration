@@ -164,7 +164,7 @@ def send_qr_email(user_email, user_name, user_id, unique_id):
     email = EmailMultiAlternatives(
         subject,
         text_content,
-        'event@leapinteraction.com',  # Replace with your email
+        'registration@4sureevent.com',  # Replace with your email
         [user_email],
     )
 
