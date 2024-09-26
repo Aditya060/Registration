@@ -24,6 +24,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.utils import ImageReader
 from PyPDF2 import PdfReader, PdfWriter
+from django.contrib.staticfiles import finders
 
 
 def register(request):
@@ -124,7 +125,7 @@ def verify_qr_code(request):
 
 def print_badge(request, unique_id):
     # Generate the path to the badge template
-    badge_template_path = os.path.join(settings.BASE_DIR, 'badge_template.pdf')
+    badge_template_path = finders.find('core/images/badge_template.pdf')
     
     # Load user information based on unique_id
     user = get_object_or_404(User, unique_id=unique_id)
