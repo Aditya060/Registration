@@ -25,5 +25,15 @@ urlpatterns = [
     path('success/', views.success, name = 'success'),
     path('verify/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
 
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    
+    path('scan_qr/', views.qr_scanner_view, name='scan_qr'),
+
+    path('print-badge/<str:unique_id>/', views.print_badge, name='print_badge'),
+    
+    
+    # path('verify/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
+
+
 ]
 urlpatterns += staticfiles_urlpatterns()
