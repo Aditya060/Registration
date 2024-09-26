@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.register, name = 'register'),
     path('success/', views.success, name = 'success'),
-    path('verify/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
+    path('verify/', views.verify_qr_code, name='verify_qr_code'),
 
     # path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
     
