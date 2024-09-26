@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block title %}QR Code Scanner{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Scan QR Code</h2>
+    <div id="reader" style="width: 100%; height: 500px; margin: auto;"></div>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+
+<script>
+    console.log("Initializing QR Code Scanner...");
+
+    function onScanSuccess(decodedText, decodedResult) {
+        // decodedText = decodedText.slice(46); // Remove the base URL
+        // decodedText = decodedText.replace(/\/$/, '');
+        console.log(`Code scanned: ${decodedText}`);
+        const baseURLLength = 25;  // Length of "https://registration-abmr.onrender.com/verify/"
+        const qrCodeUUID = decodedText.substring(baseURLLength, decodedText.length - 1);
+
+
+        fetch(`/verify/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ qr_code: qrCodeUUID })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Data received from server:", data);
+            if (data.exists) {
+                alert(`User exists: ${data.name}`);
+                window.location.href = `/print-badge/${qrCodeUUID}/`;
+                // Optional: Redirect or display user info here
+            } else {
+                alert('User not found');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while checking the QR code.');
+        });
+    }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess)
+      .catch(err => {
+          console.error("Error initializing scanner:", err);
+          alert('Could not start QR code scanner. Make sure your camera is accessible.');
+      });
+</script>
+{% endblock %}

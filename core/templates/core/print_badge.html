@@ -1,0 +1,11 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Print Badge{% endblock %}
+
+{% block content %}
+<div class="badge-container">
+    <h2>Printing Badge for {{ user.name }}</h2>
+    
+    <button onclick="window.location.href='/print-badge/{{ qr_code }}/';">Print Badge</button>
+</div>
+{% endblock %}
