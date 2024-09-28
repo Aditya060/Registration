@@ -218,7 +218,7 @@ def print_badge(request, unique_id):
     c = canvas.Canvas(packet, pagesize=letter)
 
     # Register and use an Arabic-compatible font (e.g., 'Amiri')
-    arabic_font_path = finders.find('fonts/Amiri-Regular.ttf')
+    arabic_font_path = finders.find('core/images/Amiri-Regular.ttf')
     pdfmetrics.registerFont(TTFont('Amiri', arabic_font_path))
 
     # Add QR code (you can generate the QR code as an image and draw it on the canvas)
