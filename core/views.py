@@ -1,21 +1,21 @@
-import json
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistrationForm
-from .models import User
-from .utils import send_qr_email
-from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from io import BytesIO
+import os
+
+from django.conf import settings
+from django.http import HttpResponse
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen import canvas
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
+
 from PyPDF2 import PdfReader, PdfWriter
+from django.contrib.staticfiles import finders
+
 import arabic_reshaper
 from bidi.algorithm import get_display
-from django.conf import settings
-import os
+import qrcode
 
 
 
