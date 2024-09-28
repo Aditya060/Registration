@@ -1,22 +1,46 @@
+import json
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import RegistrationForm
+from .models import User
+from .utils import send_qr_email
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_exempt
-from io import BytesIO
-import os
-
-from django.conf import settings
-from django.http import HttpResponse
+import io
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-
+from PIL import Image
+import qrcode
+import os
+from django.conf import settings
+from io import BytesIO
+from django.conf import settings
+from django.http import HttpResponse
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.utils import ImageReader
 from PyPDF2 import PdfReader, PdfWriter
-from django.contrib.staticfiles import finders
-
+from reportlab.pdfbase.ttfonts import TTFont
+import os
+from io import BytesIO
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from reportlab.pdfgen.canvas import Canvas
+from django.http import HttpResponse
+from PyPDF2 import PdfReader, PdfWriter
 import arabic_reshaper
 from bidi.algorithm import get_display
-import qrcode
-
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+from reportlab.lib import colors
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+import arabic_reshaper
 
 
 def register(request):
