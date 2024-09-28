@@ -231,8 +231,8 @@ def print_badge(request, unique_id):
     c.drawImage(qr_code_image, x=qr_code_x, y=qr_code_y, width=150, height=150)
 
     # Add user name centered above the QR code
-    name_font_size = 30  # Adjust size to be 3x current size
-    company_font_size = 20  # Adjust size to be 2x current size
+    name_font_size = 38  # Adjust size to be 3x current size
+    company_font_size = 25  # Adjust size to be 2x current size
 
     # Arabic reshaping and bidirectional text handling
     reshaped_name = arabic_reshaper.reshape(user.name)  # Reshape for proper Arabic display
