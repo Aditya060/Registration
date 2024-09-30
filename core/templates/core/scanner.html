@@ -5,51 +5,135 @@
 {% block content %}
 <div class="container">
     <h2>Scan QR Code</h2>
-    <div id="reader" style="width: 100%; height: 500px; margin: auto;"></div>
+    <!-- QR Code Reader -->
+    <video id="video" style="width: 100%; height: 500px; margin: auto; border: 2px solid #000; border-radius: 10px;" autoplay></video>
+
+    <!-- Message Box -->
+    <div id="message-box" style="display: none; text-align: center; margin-top: 20px;">
+        <div id="message" style="font-size: 18px; margin-bottom: 10px;"></div>
+        <button id="check-new" style="padding: 10px 20px; font-size: 16px;">Check New</button>
+    </div>
 </div>
 
-<script src="https://unpkg.com/html5-qrcode"></script>
+<!-- Include jsQR library -->
+<script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
 
 <script>
     console.log("Initializing QR Code Scanner...");
 
-    function onScanSuccess(decodedText, decodedResult) {
-        // decodedText = decodedText.slice(46); // Remove the base URL
-        // decodedText = decodedText.replace(/\/$/, '');
+    let video = document.getElementById('video');
+    let scanInterval;
+    
+    // Access camera and initialize QR scanning
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then((stream) => {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true); // Required for iOS devices
+            video.play();
+            startQRCodeScanning();
+        })
+        .catch((err) => {
+            console.error('Error accessing camera:', err);
+            displayMessage('Error accessing camera: ' + err);
+        });
+
+    function startQRCodeScanning() {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+
+        scanInterval = setInterval(() => {
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                const code = jsQR(imageData.data, canvas.width, canvas.height);
+
+                if (code) {
+                    // QR code found, stop scanning and process it
+                    clearInterval(scanInterval);
+                    console.log('QR Code detected:', code.data);
+                    
+                    // Validate and process the QR code data
+                    onScanSuccess(code.data);
+                }
+            }
+        }, 100); // Check every 100ms for a QR code
+    }
+
+    function onScanSuccess(decodedText) {
         console.log(`Code scanned: ${decodedText}`);
-        const baseURLLength = 25;  // Length of "https://registration-abmr.onrender.com/verify/"
-        const qrCodeUUID = decodedText.substring(baseURLLength, decodedText.length - 1);
+        
+        // Use a regex to match the UUID pattern
+        const uuidRegex = /[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}/;
+        const match = decodedText.match(uuidRegex);
+        
+        let qrCodeUUID = '';
+        if (match && match.length > 0) {
+            qrCodeUUID = match[0]; // Extracted UUID
+            console.log(`Extracted UUID: ${qrCodeUUID}`);
+        } else {
+            console.error('No valid UUID found in scanned QR code.');
+            displayMessage('Invalid QR Code format.');
+            return; // Stop processing if UUID is not found
+        }
 
+        // Hide video while checking
+        toggleReader(false);
+        displayMessage("Checking QR Code...");
 
-        fetch(`/verify/`, {
+        // Fetch request to verify the QR code
+        fetch('/verify/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ qr_code: qrCodeUUID })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log("Data received from server:", data);
             if (data.exists) {
-                alert(`User exists: ${data.name}`);
-                // window.location.href = `/print-badge/${qrCodeUUID}/`;
-                // Optional: Redirect or display user info here
+                displayMessage(`User exists: ${data.name}`);
+                
+                // Redirect to badge printing after 2 seconds
+                setTimeout(() => {
+                    // window.location.href = `/print-badge/${qrCodeUUID}/`;
+                }, 2000);
             } else {
-                alert('User not found');
+                displayMessage('User not found');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while checking the QR code.');
+            displayMessage('An error occurred while checking the QR code.');
         });
     }
 
-    var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-    html5QrcodeScanner.render(onScanSuccess)
-      .catch(err => {
-          console.error("Error initializing scanner:", err);
-          alert('Could not start QR code scanner. Make sure your camera is accessible.');
-      });
+    function displayMessage(message) {
+        document.getElementById('message').innerText = message;
+        document.getElementById('message-box').style.display = 'block';
+    }
+
+    function toggleReader(show) {
+        video.style.display = show ? 'block' : 'none';
+    }
+
+    function resetScanner() {
+        // Reset the UI to scan again
+        document.getElementById('message-box').style.display = 'none';
+        startQRCodeScanning();
+    }
+
+    // Event listener for 'Check New' button
+    document.getElementById('check-new').addEventListener('click', function() {
+        resetScanner();
+    });
 </script>
 {% endblock %}
