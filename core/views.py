@@ -2,6 +2,8 @@ import json
 import os
 from io import BytesIO
 import qrcode
+from .models import ScannedQRCode
+from django.views.decorators.csrf import csrf_exempt
 
 
 from django.shortcuts import render, redirect, get_object_or_404
