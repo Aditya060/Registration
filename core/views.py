@@ -229,29 +229,29 @@ def print_badge(request, unique_id):
     qr_code_url = f'https://tap4.link/verify/{unique_id}/'
     
     
-    # Create the QR code with specific data
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
-    )
+    # # Create the QR code with specific data
+    # qr = qrcode.QRCode(
+    #     version=1,
+    #     error_correction=qrcode.constants.ERROR_CORRECT_L,
+    #     box_size=10,
+    #     border=4,
+    # )
     
-    # Add the data to the QR code
-    qr.add_data(qr_code_url)  # qr_code_url is the data for the QR code
-    qr.make(fit=True)
+    # # Add the data to the QR code
+    # qr.add_data(qr_code_url)  # qr_code_url is the data for the QR code
+    # qr.make(fit=True)
     
-    # Create the image of the QR code
-    img = qr.make_image(fill='black', back_color='white')
+    # # Create the image of the QR code
+    # img = qr.make_image(fill='black', back_color='white')
     
-    # Save the image locally (optional, if you want to keep a copy)
-    # qr_file_path = 'qr_code.png'
-    # img.save(qr_file_path)
+    # # Save the image locally (optional, if you want to keep a copy)
+    # # qr_file_path = 'qr_code.png'
+    # # img.save(qr_file_path)
     
-    # Convert to ImageReader object for further use in reports
-    qr_code_image = ImageReader(img)
+    # # Convert to ImageReader object for further use in reports
+    # qr_code_image = ImageReader(img)
 
-    # qr_code_image = ImageReader(f'https://api.qrserver.com/v1/create-qr-code/?data={qr_code_url}&size=150x150')
+    qr_code_image = ImageReader(f'https://api.qrserver.com/v1/create-qr-code/?data={qr_code_url}&size=150x150')
 
     # Set QR code position
     qr_code_x = 220  # Adjust this value to move it more to the right
