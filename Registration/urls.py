@@ -30,8 +30,7 @@ urlpatterns = [
     path('scan_qr/', views.qr_scanner_view, name='scan_qr'),
 
     path('print-badge/<str:unique_id>/', views.print_badge, name='print_badge'),
-    
-    
+    path('scan/', views.scan_qr_code, name='scan_qr_code'),
     # path('verify/<uuid:unique_id>/', views.verify_qr_code, name='verify_qr_code'),
 
 
