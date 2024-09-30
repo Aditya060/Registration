@@ -197,6 +197,7 @@ def verify_qr_code(request):
 #     # Write the final output to the response
 #     writer.write(response)
 #     return response
+
     
 def print_badge(request, unique_id):
     # Generate the path to the badge template
@@ -300,3 +301,45 @@ def print_badge(request, unique_id):
     # Write the final output to the response
     writer.write(response)
     return response
+
+
+@csrf_exempt
+def scan_qr_code(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            uid = data.get('qr_code')
+
+            # Debug: Print the received UID
+            print(f"Received UID from QR code: {uid}")
+
+            # Validate UID
+            if not uid:
+                return JsonResponse({'exists': False, 'message': 'Invalid QR code data received'}, status=400)
+
+            # Check if UID already exists in the ScannedQRCode database
+            if ScannedQRCode.objects.filter(uid=uid).exists():
+                # Find the user with this UID in the User table (using unique_id field)
+                user = User.objects.filter(unique_id=uid).first()
+
+                # Debug: Print the user object if found
+                print(f"User found: {user}")
+
+                # If user is found, add the name to the response
+                if user:
+                    return JsonResponse({'exists': True, 'message': f'Found - {user.name}'})
+                else:
+                    return JsonResponse({'exists': True, 'message': 'UID exists but user not found'})
+            else:
+                # UID does not exist, so create a new entry with status = 1
+                ScannedQRCode.objects.create(uid=uid, status=1)
+                # Attempt to find the user after inserting UID
+                user = User.objects.filter(unique_id=uid).first()
+                return JsonResponse({'exists': False, 'message': f'Found {user.name if user else "no user found"}'})
+        except Exception as e:
+            # Log the error and return a proper error message
+            print(f"Error occurred: {str(e)}")
+            return JsonResponse({'error': 'An error occurred while saving to the database'}, status=500)
+
+    # Handle GET request to render the template
+    return render(request, 'core/scanner.html')
