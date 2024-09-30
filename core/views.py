@@ -50,16 +50,16 @@ def register(request):
 
             print('email has been sent')
 
-            return redirect('success')
+            return redirect('success', unique_id=user.unique_id)
     else:
         print('invalid form')
         form = RegistrationForm()
 
     return render(request, 'core/register.html', {'form': form})
 
-def success(request):
-    return render(request, 'core/success.html')
-
+def success(request, unique_id):
+    # Now the unique_id is passed as a parameter in the URL
+    return render(request, 'core/success.html', {'unique_id': unique_id})
 
 #Function to verify if the user whose qr code was scanned, exists in the database
 # def verify_qr_code(request, unique_id):
