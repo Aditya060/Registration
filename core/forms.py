@@ -10,7 +10,7 @@ class RegistrationForm(forms.ModelForm):
         ('other', 'Other'),
     ]
 
-    captcha = ReCaptchaField()
+    # captcha = ReCaptchaField()
 
     class Meta:
         model = User
